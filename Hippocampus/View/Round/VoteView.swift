@@ -17,14 +17,12 @@ struct VoteView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Text("Who gets the punishment?")
-                    .font(.title2.bold())
-                Spacer()
-                TimerPill(secondsLeft: secondsLeft)
-            }
+            Text("Who gets the punishment?")
+                .font(.custom("Helvetica-Bold", size: 22))
+                .padding(.top, 24)
             Text("Pick in secret. Don't show anyone yet.")
-                .foregroundStyle(.secondary)
+                .font(.custom("Helvetica-Light", size: 12))
+            ClockTimer(secondsLeft: secondsLeft)
 
             ScrollView {
                 VStack(spacing: 12) {
@@ -34,19 +32,19 @@ struct VoteView: View {
                         }
                     }
                 }
+                .padding(4)
             }
 
-            PillButton(title: "Lock my vote") {
+            PillButton(title: "Lock my vote", isMain: !vote.isEmpty) {
                 screen = .voteReveal
             }
             .disabled(vote.isEmpty)
-            .opacity(vote.isEmpty ? 0.4 : 1)
 
-            Button("Skip voting") {
+            PillButton(title: "Skip voting", isMain: false) {
                 screen = .roundEnd
             }
-            .foregroundStyle(.secondary)
         }
+        .foregroundStyle(appBlue)
         .onAppear {
             vote = ""
         }
@@ -68,5 +66,5 @@ struct VoteView: View {
 
 #Preview {
     VoteView(screen: .constant(.vote), vote: .constant("Leo"), names: ["Ana", "Leo", "Mia"], playerCount: 3)
-        .padding(24)
+        .padding(30)
 }

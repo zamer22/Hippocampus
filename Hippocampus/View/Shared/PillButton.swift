@@ -15,13 +15,14 @@ struct PillButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.headline)
+                .font(.custom("Helvetica", size: 18))
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-                .foregroundStyle(isMain ? Color.white : Color.black)
-                .background(isMain ? Color.black : Color.clear)
+                .frame(height: 49)
+                .foregroundStyle(isMain ? Color.white : appBlue)
+                .background(isMain ? appBlue : appGray)
                 .clipShape(Capsule())
-                .overlay(Capsule().stroke(Color.black, lineWidth: 1.5))
+                .overlay(Capsule().stroke(appBlue, lineWidth: isMain ? 0 : 1))
+                .shadow(color: .black.opacity(0.2), radius: 4, y: 4)
         }
     }
 }
@@ -31,5 +32,5 @@ struct PillButton: View {
         PillButton(title: "Main") {}
         PillButton(title: "Not main", isMain: false) {}
     }
-    .padding(24)
+    .padding(30)
 }

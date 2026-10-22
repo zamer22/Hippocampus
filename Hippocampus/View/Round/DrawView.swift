@@ -16,20 +16,27 @@ struct DrawView: View {
     @State private var secondsLeft = 60
 
     var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Text(word)
-                    .font(.title2.bold())
-                Spacer()
-                TimerPill(secondsLeft: secondsLeft)
-            }
+        VStack(spacing: 8) {
+            Text(word)
+                .font(.custom("Helvetica-Bold", size: 22))
+            Text("Draw the word you see.")
+                .font(.custom("Helvetica-Light", size: 12))
+                .padding(.bottom, 8)
+
             DrawingCanvas(drawing: $drawing)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1.5))
+                .clipShape(RoundedRectangle(cornerRadius: 40))
+                .overlay(alignment: .bottom) {
+                    TimerPill(secondsLeft: secondsLeft)
+                        .padding(.bottom, 20)
+                }
+                .shadow(color: appBlue.opacity(0.5), radius: 4, y: 4)
+                .padding(.bottom, 24)
+
             PillButton(title: "I'm done") {
-                screen = .showDrawing
+                screen = .flashScreen
             }
         }
+        .foregroundStyle(appBlue)
         .onAppear {
             drawing = PKDrawing()
         }
@@ -46,6 +53,6 @@ struct DrawView: View {
 }
 
 #Preview {
-    DrawView(screen: .constant(.draw), drawing: .constant(PKDrawing()), word: "Lighthouse")
-        .padding(24)
+    DrawView(screen: .constant(.draw), drawing: .constant(PKDrawing()), word: "Spider")
+        .padding(30)
 }

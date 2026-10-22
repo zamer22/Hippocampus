@@ -15,24 +15,24 @@ struct VoteRevealView: View {
     @State private var isCounting = false
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
 
             if isCounting {
                 Text("\(countdown)")
-                    .font(.system(size: 120, weight: .bold))
+                    .font(.custom("Helvetica-Bold", size: 120))
             } else if countdown == 0 {
-                Text("I voted for")
-                    .foregroundStyle(.secondary)
+                Text("My vote is:")
+                    .font(.custom("Helvetica-Bold", size: 22))
                 Text(vote)
-                    .font(.system(size: 56, weight: .bold))
+                    .font(.custom("Helvetica-Bold", size: 50))
                     .multilineTextAlignment(.center)
             } else {
                 Text("Vote locked")
-                    .font(.title.bold())
-                Text("When everyone is ready, start the countdown and show your phone at 0.")
+                    .font(.custom("Helvetica-Bold", size: 30))
+                Text("When everyone is ready, start the countdown\nand show your phone at 0.")
+                    .font(.custom("Helvetica-Light", size: 12))
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
             }
 
             Spacer()
@@ -50,6 +50,7 @@ struct VoteRevealView: View {
                 }
             }
         }
+        .foregroundStyle(appBlue)
     }
 
     func startCountdown() {
@@ -65,6 +66,6 @@ struct VoteRevealView: View {
 }
 
 #Preview {
-    VoteRevealView(screen: .constant(.voteReveal), vote: "Leo")
-        .padding(24)
+    VoteRevealView(screen: .constant(.voteReveal), vote: "Player 1")
+        .padding(30)
 }

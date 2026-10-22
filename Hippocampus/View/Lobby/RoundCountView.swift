@@ -15,16 +15,13 @@ struct RoundCountView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            BackButton {
-                screen = .playerNames
-            }
+            TopBar(screen: $screen, backTo: .players)
             Spacer()
             Text("How many rounds?")
-                .font(.title2.bold())
+                .font(.custom("Helvetica-Bold", size: 22))
             Text("\(roundCount)")
-                .font(.system(size: 72, weight: .bold))
-            Stepper("Rounds", value: $roundCount, in: 1...10)
-                .labelsHidden()
+                .font(.custom("Helvetica-Bold", size: 79))
+            PlusMinusControl(value: $roundCount, minimum: 1, maximum: 10)
             Spacer()
             PillButton(title: "Start") {
                 roundNumber = 1
@@ -32,10 +29,11 @@ struct RoundCountView: View {
                 screen = .writeWord
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
     RoundCountView(screen: .constant(.roundCount), roundCount: .constant(3), roundNumber: .constant(1), isPlaying: .constant(false))
-        .padding(24)
+        .padding(30)
 }

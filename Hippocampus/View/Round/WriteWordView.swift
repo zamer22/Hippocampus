@@ -11,34 +11,56 @@ struct WriteWordView: View {
     @Binding var screen: Screen
     @Binding var word: String
 
+    @State private var secondsLeft = 15
+
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
-            Text("Write a word for your neighbor")
-                .font(.title2.bold())
+            Text("Write a word for your neighbor.")
+                .font(.custom("Helvetica-Bold", size: 22))
                 .multilineTextAlignment(.center)
-            Text("Keep it secret. They will have to draw it.")
-                .foregroundStyle(.secondary)
-            TextField("Your word", text: $word)
-                .textFieldStyle(.roundedBorder)
+            Text("Keep it secret. They have to draw it.")
+                .font(.custom("Helvetica-Light", size: 12))
+            AppTextField(placeholder: "your word…", text: $word)
                 .submitLabel(.done)
-            PillButton(title: "Give me an idea", isMain: false) {
-                word = wordIdeas.randomElement() ?? ""
+            HStack {
+                SmallButton(title: "Give me an idea") {
+                    word = wordIdeas.randomElement() ?? ""
+                }
+                Spacer()
             }
+            ClockTimer(secondsLeft: secondsLeft)
+                .padding(.top, 70)
             Spacer()
-            PillButton(title: "Done") {
-                screen = .passPhone
+            PillButton(title: "Next", isMain: !word.isEmpty) {
+                goToPassPhone()
             }
             .disabled(word.isEmpty)
-            .opacity(word.isEmpty ? 0.4 : 1)
         }
+        .foregroundStyle(appBlue)
         .onAppear {
             word = ""
         }
+        .task {
+            while secondsLeft > 0 {
+                try? await Task.sleep(for: .seconds(1))
+                secondsLeft -= 1
+            }
+            if screen == .writeWord {
+                goToPassPhone()
+            }
+        }
+    }
+
+    func goToPassPhone() {
+        if word.isEmpty {
+            word = wordIdeas.randomElement() ?? ""
+        }
+        screen = .passPhone
     }
 }
 
 #Preview {
     WriteWordView(screen: .constant(.writeWord), word: .constant(""))
-        .padding(24)
+        .padding(30)
 }

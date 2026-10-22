@@ -12,13 +12,15 @@ struct TimerPill: View {
 
     var body: some View {
         Text("\(secondsLeft)s")
-            .font(.subheadline.monospacedDigit())
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .overlay(Capsule().stroke(Color.black))
+            .font(.custom("Helvetica", size: 15).monospacedDigit())
+            .foregroundStyle(appBlue)
+            .padding(.horizontal, 14)
+            .frame(height: 32)
+            .background(appLightBlue)
+            .clipShape(Capsule())
     }
 }
 
 #Preview {
-    TimerPill(secondsLeft: 42)
+    TimerPill(secondsLeft: 15)
 }

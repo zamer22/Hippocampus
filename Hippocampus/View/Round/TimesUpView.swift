@@ -11,24 +11,25 @@ struct TimesUpView: View {
     @Binding var screen: Screen
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
             Image(systemName: "alarm")
                 .font(.system(size: 64))
             Text("Time's up!")
-                .font(.largeTitle.bold())
+                .font(.custom("Helvetica-Bold", size: 30))
             Text("Pencils down. Get ready to show your drawing.")
+                .font(.custom("Helvetica-Light", size: 12))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
             Spacer()
-            PillButton(title: "Show my drawing") {
-                screen = .showDrawing
+            PillButton(title: "Next") {
+                screen = .flashScreen
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
     TimesUpView(screen: .constant(.timesUp))
-        .padding(24)
+        .padding(30)
 }

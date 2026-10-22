@@ -12,22 +12,28 @@ struct RoundHeader: View {
     @Binding var isPlaying: Bool
     let roundNumber: Int
     let roundCount: Int
+    let step: Int
 
     var body: some View {
-        HStack {
-            Text("Round \(roundNumber) of \(roundCount)")
-                .font(.headline)
-            Spacer()
-            Button("End") {
-                isPlaying = false
-                screen = .final
+        VStack(spacing: 12) {
+            ZStack {
+                Text("Round \(roundNumber)/\(roundCount)")
+                    .font(.custom("Helvetica", size: 22))
+                    .foregroundStyle(appBlue)
+                HStack {
+                    Spacer()
+                    IconButton(systemName: "xmark") {
+                        isPlaying = false
+                        screen = .final
+                    }
+                }
             }
+            ProgressBar(step: step, totalSteps: 10)
         }
-        .padding(.bottom, 8)
     }
 }
 
 #Preview {
-    RoundHeader(screen: .constant(.draw), isPlaying: .constant(true), roundNumber: 1, roundCount: 3)
-        .padding(24)
+    RoundHeader(screen: .constant(.draw), isPlaying: .constant(true), roundNumber: 1, roundCount: 3, step: 3)
+        .padding(30)
 }
