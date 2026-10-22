@@ -14,14 +14,17 @@ struct RoundEndView: View {
     let roundCount: Int
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
             if roundNumber == roundCount {
                 Text("That was the last round")
-                    .font(.title.bold())
+                    .font(.custom("Helvetica-Bold", size: 30))
+                    .multilineTextAlignment(.center)
             } else {
                 Text("Round over")
-                    .font(.title.bold())
+                    .font(.custom("Helvetica-Bold", size: 30))
+                Text("Same players, new words.")
+                    .font(.custom("Helvetica-Light", size: 12))
             }
             Spacer()
 
@@ -36,10 +39,11 @@ struct RoundEndView: View {
                 screen = .final
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
     RoundEndView(screen: .constant(.roundEnd), roundNumber: .constant(1), isPlaying: .constant(true), roundCount: 3)
-        .padding(24)
+        .padding(30)
 }

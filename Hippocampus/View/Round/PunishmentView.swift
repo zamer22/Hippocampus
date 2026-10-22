@@ -11,24 +11,35 @@ struct PunishmentView: View {
     @Binding var screen: Screen
 
     @State private var punishment = punishments.randomElement() ?? ""
+    @State private var secondsLeft = 15
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
-            Text("Punishment for the most voted")
-                .font(.title2.bold())
-                .multilineTextAlignment(.center)
-            Text(punishment)
-                .font(.title3)
-                .multilineTextAlignment(.center)
-                .padding(20)
-                .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 1.5))
-            Button("Another one") {
-                pickAnotherPunishment()
+
+            VStack(spacing: 24) {
+                Text("Loser's Punishment")
+                    .font(.custom("Helvetica", size: 20))
+                Text("“\(punishment)”")
+                    .font(.custom("Helvetica-Bold", size: 24))
+                    .multilineTextAlignment(.center)
             }
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.white)
+            .padding(24)
+            .frame(maxWidth: .infinity, minHeight: 380)
+            .background(appBlue)
+            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .shadow(color: appBlue.opacity(0.5), radius: 6, y: 6)
+
+            HStack {
+                SmallButton(title: "Another one") {
+                    punishment = punishments.randomElement() ?? ""
+                }
+                Spacer()
+                ClockTimer(secondsLeft: secondsLeft)
+            }
             Spacer()
+
             PillButton(title: "Done") {
                 screen = .roundEnd
             }
@@ -36,18 +47,17 @@ struct PunishmentView: View {
                 screen = .roundEnd
             }
         }
-    }
-
-    func pickAnotherPunishment() {
-        var newPunishment = punishment
-        while newPunishment == punishment {
-            newPunishment = punishments.randomElement() ?? ""
+        .foregroundStyle(appBlue)
+        .task {
+            while secondsLeft > 0 {
+                try? await Task.sleep(for: .seconds(1))
+                secondsLeft -= 1
+            }
         }
-        punishment = newPunishment
     }
 }
 
 #Preview {
     PunishmentView(screen: .constant(.punishment))
-        .padding(24)
+        .padding(30)
 }

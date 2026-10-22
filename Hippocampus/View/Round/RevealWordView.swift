@@ -12,23 +12,23 @@ struct RevealWordView: View {
     let word: String
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
             Text("My word was")
-                .font(.title3)
-                .foregroundStyle(.secondary)
+                .font(.custom("Helvetica-Light", size: 17))
             Text(word)
-                .font(.system(size: 56, weight: .bold))
+                .font(.custom("Helvetica-Bold", size: 56))
                 .multilineTextAlignment(.center)
             Spacer()
-            PillButton(title: "Everyone is ready to vote") {
+            PillButton(title: "Vote") {
                 screen = .vote
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
-    RevealWordView(screen: .constant(.revealWord), word: "Lighthouse")
-        .padding(24)
+    RevealWordView(screen: .constant(.revealWord), word: "Spider")
+        .padding(30)
 }

@@ -11,24 +11,41 @@ struct PassPhoneView: View {
     @Binding var screen: Screen
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 30) {
             Spacer()
-            Image(systemName: "iphone.gen3.radiowaves.left.and.right")
-                .font(.system(size: 56))
-            Text("Pass the phone")
-                .font(.title.bold())
-            Text("Hand it to your neighbor. The word stays hidden until they tap.")
+            Text("Pass the phone!")
+                .font(.custom("Helvetica-Bold", size: 22))
+
+            ZStack {
+                Circle()
+                    .fill(appLightBlue)
+                    .frame(width: 97, height: 97)
+                VStack(spacing: 50) {
+                    Image(systemName: "iphone")
+                    Image(systemName: "iphone")
+                }
+                HStack(spacing: 70) {
+                    Image(systemName: "iphone")
+                        .rotationEffect(.degrees(90))
+                    Image(systemName: "iphone")
+                        .rotationEffect(.degrees(90))
+                }
+            }
+            .font(.system(size: 50))
+
+            Text("Hand it to your neighbor.\nThe word stays hidden until they tap.")
+                .font(.custom("Helvetica-Light", size: 12))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
             Spacer()
-            PillButton(title: "I'm ready to draw") {
+            PillButton(title: "Ready to Draw") {
                 screen = .draw
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
     PassPhoneView(screen: .constant(.passPhone))
-        .padding(24)
+        .padding(30)
 }

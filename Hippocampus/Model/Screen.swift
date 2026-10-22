@@ -8,18 +8,16 @@
 import Foundation
 
 enum Screen {
-    case splash
     case home
-    case pickGame
-    case playerCount
-    case playerNames
+    case players
     case roundCount
 
     case writeWord
     case passPhone
     case draw
     case timesUp
-    case showDrawing
+    case flashScreen
+    case guessWord
     case revealWord
     case vote
     case voteReveal

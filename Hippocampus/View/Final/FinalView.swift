@@ -11,22 +11,25 @@ struct FinalView: View {
     @Binding var screen: Screen
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             Spacer()
+            FloatingLogo(size: 120)
+                .padding(.bottom, 16)
             Text("Thanks for playing")
-                .font(.largeTitle.bold())
+                .font(.custom("Helvetica-Bold", size: 30))
             Text("Nothing from this game is saved. The words and drawings are gone once you leave.")
+                .font(.custom("Helvetica-Light", size: 15))
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
             Spacer()
             PillButton(title: "Back to home") {
                 screen = .home
             }
         }
+        .foregroundStyle(appBlue)
     }
 }
 
 #Preview {
     FinalView(screen: .constant(.final))
-        .padding(24)
+        .padding(30)
 }
