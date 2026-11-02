@@ -20,6 +20,7 @@ enum Screen {
     case guessWord
     case revealWord
     case vote
+    case flashVote
     case voteReveal
     case punishment
     case roundEnd

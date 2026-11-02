@@ -27,38 +27,47 @@ struct ContentView: View {
                 RoundHeader(screen: $screen, isPlaying: $isPlaying, roundNumber: roundNumber, roundCount: roundCount, step: roundStep())
             }
 
-            switch screen {
-            case .home:
-                HomeView(screen: $screen)
-            case .players:
-                PlayersView(screen: $screen, playerCount: $playerCount, names: $names)
-            case .roundCount:
-                RoundCountView(screen: $screen, roundCount: $roundCount, roundNumber: $roundNumber, isPlaying: $isPlaying)
-            case .writeWord:
-                WriteWordView(screen: $screen, word: $secretWord)
-            case .passPhone:
-                PassPhoneView(screen: $screen)
-            case .draw:
-                DrawView(screen: $screen, drawing: $drawing, word: secretWord)
-            case .timesUp:
-                TimesUpView(screen: $screen)
-            case .flashScreen:
-                FlashScreenView(screen: $screen)
-            case .guessWord:
-                GuessWordView(screen: $screen, drawing: drawing)
-            case .revealWord:
-                RevealWordView(screen: $screen, word: secretWord)
-            case .vote:
-                VoteView(screen: $screen, vote: $vote, names: names, playerCount: playerCount)
-            case .voteReveal:
-                VoteRevealView(screen: $screen, vote: vote)
-            case .punishment:
-                PunishmentView(screen: $screen)
-            case .roundEnd:
-                RoundEndView(screen: $screen, roundNumber: $roundNumber, isPlaying: $isPlaying, roundCount: roundCount)
-            case .final:
-                FinalView(screen: $screen)
+            ZStack {
+                Group {
+                    switch screen {
+                    case .home:
+                        HomeView(screen: $screen)
+                    case .players:
+                        PlayersView(screen: $screen, playerCount: $playerCount, names: $names)
+                    case .roundCount:
+                        RoundCountView(screen: $screen, roundCount: $roundCount, roundNumber: $roundNumber, isPlaying: $isPlaying)
+                    case .writeWord:
+                        WriteWordView(screen: $screen, word: $secretWord)
+                    case .passPhone:
+                        PassPhoneView(screen: $screen)
+                    case .draw:
+                        DrawView(screen: $screen, drawing: $drawing, word: secretWord)
+                    case .timesUp:
+                        TimesUpView(screen: $screen)
+                    case .flashScreen:
+                        FlashScreenView(screen: $screen)
+                    case .guessWord:
+                        GuessWordView(screen: $screen, drawing: drawing)
+                    case .revealWord:
+                        RevealWordView(screen: $screen, word: secretWord)
+                    case .vote:
+                        VoteView(screen: $screen, vote: $vote, names: names, playerCount: playerCount)
+                    case .flashVote:
+                        FlashVoteView(screen: $screen)
+                    case .voteReveal:
+                        VoteRevealView(screen: $screen, vote: vote)
+                    case .punishment:
+                        PunishmentView(screen: $screen)
+                    case .roundEnd:
+                        RoundEndView(screen: $screen, roundNumber: $roundNumber, isPlaying: $isPlaying, roundCount: roundCount)
+                    case .final:
+                        FinalView(screen: $screen)
+                    }
+                }
+                .id(screen)
+                .transition(.push(from: .trailing))
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding(.horizontal, 30)
         .padding(.top, 16)
@@ -70,6 +79,7 @@ struct ContentView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
         }
+        .animation(.easeInOut(duration: 0.4), value: screen)
         .onChange(of: screen) {
             if screen == .home {
                 resetGame()
@@ -118,12 +128,14 @@ struct ContentView: View {
             return 6
         case .vote:
             return 7
-        case .voteReveal:
+        case .flashVote:
             return 8
-        case .punishment:
+        case .voteReveal:
             return 9
-        default:
+        case .punishment:
             return 10
+        default:
+            return 11
         }
     }
 }

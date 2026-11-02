@@ -11,7 +11,6 @@ struct PunishmentView: View {
     @Binding var screen: Screen
 
     @State private var punishment = punishments.randomElement() ?? ""
-    @State private var secondsLeft = 15
 
     var body: some View {
         VStack(spacing: 16) {
@@ -31,13 +30,9 @@ struct PunishmentView: View {
             .clipShape(RoundedRectangle(cornerRadius: 40))
             .shadow(color: appBlue.opacity(0.5), radius: 6, y: 6)
 
-            HStack {
-                SmallButton(title: "Another one") {
-                    punishment = punishments.randomElement() ?? ""
-                }
-                Spacer()
-                ClockTimer(secondsLeft: secondsLeft)
-            }
+            Text("Talk it out: will they do it or skip it?")
+                .font(.custom("Helvetica-Light", size: 17))
+                .multilineTextAlignment(.center)
             Spacer()
 
             PillButton(title: "Done") {
@@ -48,12 +43,6 @@ struct PunishmentView: View {
             }
         }
         .foregroundStyle(appBlue)
-        .task {
-            while secondsLeft > 0 {
-                try? await Task.sleep(for: .seconds(1))
-                secondsLeft -= 1
-            }
-        }
     }
 }
 

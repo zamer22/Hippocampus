@@ -16,17 +16,13 @@ struct FlashScreenView: View {
         VStack(spacing: 16) {
             Spacer()
             Text("Flash your screen!")
-                .font(.custom("Helvetica-Bold", size: 22))
-            Text("Let your neighbors see what you draw")
-                .font(.custom("Helvetica-Light", size: 12))
-            HStack(spacing: 4) {
-                Image(systemName: "iphone")
-                Image(systemName: "iphone")
-            }
-            .font(.system(size: 60))
-            .padding(.vertical, 40)
+                .font(.custom("Helvetica-Bold", size: 24))
+            Text("Turn your phone around so everyone\ncan see your drawing.")
+                .font(.custom("Helvetica", size: 17))
+                .multilineTextAlignment(.center)
+            FlashIcon()
+                .padding(.vertical, 24)
             ClockTimer(secondsLeft: secondsLeft)
-            Spacer()
             Spacer()
         }
         .foregroundStyle(appBlue)

@@ -36,7 +36,7 @@ struct VoteView: View {
             }
 
             PillButton(title: "Lock my vote", isMain: !vote.isEmpty) {
-                screen = .voteReveal
+                screen = .flashVote
             }
             .disabled(vote.isEmpty)
 
@@ -57,7 +57,7 @@ struct VoteView: View {
                 if vote.isEmpty {
                     screen = .roundEnd
                 } else {
-                    screen = .voteReveal
+                    screen = .flashVote
                 }
             }
         }

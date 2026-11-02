@@ -53,6 +53,7 @@ struct WriteWordView: View {
     }
 
     func goToPassPhone() {
+        word = word.trimmingCharacters(in: .whitespaces)
         if word.isEmpty {
             word = wordIdeas.randomElement() ?? ""
         }

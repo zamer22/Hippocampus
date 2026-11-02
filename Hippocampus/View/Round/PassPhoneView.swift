@@ -14,27 +14,28 @@ struct PassPhoneView: View {
         VStack(spacing: 30) {
             Spacer()
             Text("Pass the phone!")
-                .font(.custom("Helvetica-Bold", size: 22))
+                .font(.custom("Helvetica-Bold", size: 24))
 
             ZStack {
                 Circle()
                     .fill(appLightBlue)
-                    .frame(width: 97, height: 97)
-                VStack(spacing: 50) {
+                    .frame(width: 110, height: 110)
+                VStack(spacing: 56) {
                     Image(systemName: "iphone")
                     Image(systemName: "iphone")
                 }
-                HStack(spacing: 70) {
+                HStack(spacing: 80) {
                     Image(systemName: "iphone")
                         .rotationEffect(.degrees(90))
                     Image(systemName: "iphone")
                         .rotationEffect(.degrees(90))
                 }
             }
-            .font(.system(size: 50))
+            .font(.system(size: 56))
+            .frame(height: 200)
 
-            Text("Hand it to your neighbor.\nThe word stays hidden until they tap.")
-                .font(.custom("Helvetica-Light", size: 12))
+            Text("Hand it to your neighbor.\nDon't peek at the word!")
+                .font(.custom("Helvetica", size: 17))
                 .multilineTextAlignment(.center)
             Spacer()
             PillButton(title: "Ready to Draw") {

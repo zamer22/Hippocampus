@@ -20,7 +20,7 @@ struct PlayersView: View {
                 .font(.custom("Helvetica-Bold", size: 22))
             Text("\(playerCount)")
                 .font(.custom("Helvetica-Bold", size: 79))
-            PlusMinusControl(value: $playerCount, minimum: 2, maximum: 10)
+            PlusMinusControl(value: $playerCount, minimum: 3, maximum: 10)
 
             Text("Who is playing?")
                 .font(.custom("Helvetica-Bold", size: 22))
@@ -51,6 +51,8 @@ struct PlayersView: View {
             let name = names[seat].trimmingCharacters(in: .whitespaces)
             if name.isEmpty {
                 names[seat] = "Player \(seat + 1)"
+            } else {
+                names[seat] = name
             }
         }
     }

@@ -28,7 +28,7 @@ struct RoundHeader: View {
                     }
                 }
             }
-            ProgressBar(step: step, totalSteps: 10)
+            ProgressBar(step: step, totalSteps: 11)
         }
     }
 }

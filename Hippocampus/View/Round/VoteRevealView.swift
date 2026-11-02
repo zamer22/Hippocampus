@@ -12,26 +12,19 @@ struct VoteRevealView: View {
     let vote: String
 
     @State private var countdown = 3
-    @State private var isCounting = false
 
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
 
-            if isCounting {
+            if countdown > 0 {
                 Text("\(countdown)")
                     .font(.custom("Helvetica-Bold", size: 120))
-            } else if countdown == 0 {
+            } else {
                 Text("My vote is:")
                     .font(.custom("Helvetica-Bold", size: 22))
                 Text(vote)
                     .font(.custom("Helvetica-Bold", size: 50))
-                    .multilineTextAlignment(.center)
-            } else {
-                Text("Vote locked")
-                    .font(.custom("Helvetica-Bold", size: 30))
-                Text("When everyone is ready, start the countdown\nand show your phone at 0.")
-                    .font(.custom("Helvetica-Light", size: 12))
                     .multilineTextAlignment(.center)
             }
 
@@ -44,23 +37,14 @@ struct VoteRevealView: View {
                 PillButton(title: "Skip", isMain: false) {
                     screen = .roundEnd
                 }
-            } else if !isCounting {
-                PillButton(title: "Start countdown") {
-                    startCountdown()
-                }
             }
         }
         .foregroundStyle(appBlue)
-    }
-
-    func startCountdown() {
-        isCounting = true
-        Task {
+        .task {
             while countdown > 0 {
                 try? await Task.sleep(for: .seconds(1))
                 countdown -= 1
             }
-            isCounting = false
         }
     }
 }
